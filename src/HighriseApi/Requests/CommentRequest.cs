@@ -17,14 +17,14 @@ namespace HighriseApi.Requests
 
         public Comment Get(int id)
         {
-            var response = _client.Execute<Comment>(new RestRequest(String.Format("comments/{0}.xml", id), Method.GET));
+            var response = Client.Execute<Comment>(new RestRequest(String.Format("comments/{0}.xml", id), Method.GET));
             var comment = response.Data;
             return comment;
         }
 
         public IEnumerable<Comment> Get(int id, CommentType commentType)
         {
-            var response = _client.Execute<List<Comment>>(new RestRequest(String.Format("{0}/{1}/comments.xml", commentType.ToString().ToLower(), id), Method.GET));
+            var response = Client.Execute<List<Comment>>(new RestRequest(String.Format("{0}/{1}/comments.xml", commentType.ToString().ToLower(), id), Method.GET));
             var comments = response.Data;
             return comments;
         }
@@ -34,7 +34,7 @@ namespace HighriseApi.Requests
             var request = new RestRequest("comments.xml", Method.POST) { XmlSerializer = new XmlIgnoreSerializer() };
             request.AddBody(comment);
 
-            var response = _client.Execute<Comment>(request);
+            var response = Client.Execute<Comment>(request);
             return response.Data;
         }
         
@@ -44,13 +44,13 @@ namespace HighriseApi.Requests
             request.AddParameter("id", comment.Id, ParameterType.UrlSegment);
             request.AddBody(comment);
 
-            var response = _client.Execute<Kase>(request);
+            var response = Client.Execute<Kase>(request);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
         public bool Delete(int id)
         {
-            var response = _client.Execute<Kase>(new RestRequest(String.Format("comments/{0}.xml", id), Method.DELETE));
+            var response = Client.Execute<Kase>(new RestRequest(String.Format("comments/{0}.xml", id), Method.DELETE));
             return response.StatusCode == HttpStatusCode.OK;
         }
     }

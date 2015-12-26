@@ -1,11 +1,7 @@
 ﻿using HighriseApi.Requests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Linq;
-using System.Collections;
-using RestSharp;
-using HighriseApi;
-using System.Collections.Generic;
+using HighriseApi.Models.Enums;
 
 namespace HighriseApi.Tests
 {
@@ -18,25 +14,11 @@ namespace HighriseApi.Tests
     [TestClass()]
     public class EmailRequestTest : TestBase
     {
-
-
-        private TestContext testContextInstance;
-
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
+        public TestContext TestContext { get; set; }
 
         #region Additional test attributes
         // 
@@ -68,18 +50,16 @@ namespace HighriseApi.Tests
         //
         #endregion
 
-
         /// <summary>
         ///A test for Get
         ///</summary>
         [TestMethod()]
         public void GetTest()
         {
-            EmailRequest target = base.HighriseApiRequest.EmailRequest;
-            Nullable<int> offset = new Nullable<int>(); // TODO: Initialize to an appropriate value
-            IEnumerable<Email> actual;
-            actual = target.Get(offset);
-            Assert.IsTrue(actual.Count() > 0);
+            EmailRequest target = HighriseApiRequest.EmailRequest;
+            int? offset = null; // TODO: Initialize to an appropriate value
+            var actual = target.Get(SubjectType.People, 7777, offset);
+            Assert.IsTrue(actual.Any());
         }
     }
 }

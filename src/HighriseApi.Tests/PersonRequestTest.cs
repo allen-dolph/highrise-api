@@ -1,13 +1,10 @@
 ﻿using HighriseApi.Requests;
 using System.Linq;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace HighriseApi.Tests
 {
-    
-    
     /// <summary>
     ///This is a test class for PersonRequestTest and is intended
     ///to contain all PersonRequestTest Unit Tests
@@ -72,11 +69,10 @@ namespace HighriseApi.Tests
         [TestMethod()]
         public void GetTest()
         {
-            PersonRequest target = base.HighriseApiRequest.PersonRequest; // new PersonRequest(client); // TODO: Initialize to an appropriate value
-            DateTime startDate = DateTime.Parse("2013-01-01");
-            IEnumerable<Person> actual;
-            actual = target.Get(startDate);
-            Assert.IsTrue(actual.Count() > 0);
+            PersonRequest target = HighriseApiRequest.PersonRequest;
+            DateTime startDate = DateTime.Now.AddDays(-30);
+            var actual = target.Get(startDate);
+            Assert.IsTrue(actual.Any());
         }
 
         /// <summary>
@@ -85,10 +81,9 @@ namespace HighriseApi.Tests
         [TestMethod()]
         public void GetTest1()
         {
-            PersonRequest target = base.HighriseApiRequest.PersonRequest;
-            int id = 185835413; 
-            Person actual;
-            actual = target.Get(id);
+            PersonRequest target = HighriseApiRequest.PersonRequest;
+            int id = 185835413;
+            var actual = target.Get(id);
             Assert.IsNotNull(actual);
         }
     }

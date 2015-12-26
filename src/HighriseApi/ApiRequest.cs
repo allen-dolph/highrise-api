@@ -1,6 +1,7 @@
 ﻿using System;
 using HighriseApi.Requests;
 using RestSharp;
+using RestSharp.Authenticators;
 
 namespace HighriseApi
 {
@@ -32,7 +33,7 @@ namespace HighriseApi
 
             _client = new RestClient
                 {
-                    BaseUrl = String.Format("https://{0}.highrisehq.com", _username),
+                    BaseUrl = new Uri(string.Format("https://{0}.highrisehq.com", _username)),
                     Authenticator = new HttpBasicAuthenticator(_authenticationToken, "X")
                 };
         }

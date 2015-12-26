@@ -10,7 +10,7 @@ namespace HighriseApi.Requests
 
         public Account Get()
         {
-            var response = _client.Execute<Account>(new RestRequest("account.xml", Method.GET));
+            var response = Client.Execute<Account>(new RestRequest("account.xml", Method.GET));
             return response.Data;
         }
     }

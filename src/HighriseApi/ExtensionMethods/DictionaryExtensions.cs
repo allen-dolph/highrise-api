@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using RestSharp.Contrib;
+using RestSharp.Extensions.MonoHttp;
 
 namespace HighriseApi.ExtensionMethods
 {
