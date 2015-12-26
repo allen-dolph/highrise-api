@@ -1,12 +1,8 @@
 ﻿using HighriseApi.Requests;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using RestSharp;
-using HighriseApi;
-using System.Collections.Generic;
 
 namespace HighriseApi.Tests
 {
