@@ -5,7 +5,6 @@ using HighriseApi.Serializers;
 using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 
 
@@ -44,13 +43,13 @@ namespace HighriseApi.Requests
             request.AddParameter("id", comment.Id, ParameterType.UrlSegment);
             request.AddBody(comment);
 
-            var response = Client.Execute<Kase>(request);
+            var response = Client.Execute<Comment>(request);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
         public bool Delete(int id)
         {
-            var response = Client.Execute<Kase>(new RestRequest(String.Format("comments/{0}.xml", id), Method.DELETE));
+            var response = Client.Execute<Comment>(new RestRequest(String.Format("comments/{0}.xml", id), Method.DELETE));
             return response.StatusCode == HttpStatusCode.OK;
         }
     }
