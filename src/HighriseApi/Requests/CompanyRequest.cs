@@ -19,8 +19,11 @@ namespace HighriseApi.Requests
                           ? String.Format("companies.xml?n={0}", offset.Value)
                           : "companies.xml";
 
-            var response = Client.Execute<List<Company>>(new RestRequest(url, Method.GET));
-            return response.Data;
+            var req = new RestRequest(url, Method.GET);
+
+            var response = Client.Execute<List<Company>>(req);
+
+            return response != null ? response.Data : null;
         }
 
         public Company Get(int id)

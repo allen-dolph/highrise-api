@@ -38,6 +38,9 @@ namespace HighriseApi.Models
         public List<SubjectData> SubjectDatas { get; set; }
 
         [SerializeAs(Name = "tags")]
-        public List<Tag> Tags { get; set; } 
+        public List<Tag> Tags { get; set; }
+
+        [SerializeAs(Name = "avatar_url")]
+        public string AvatarUrl { get; set; }
     }
 }

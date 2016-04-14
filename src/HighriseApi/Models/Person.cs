@@ -32,7 +32,7 @@ namespace HighriseApi
         [SerializeAs(Name = "linkedin-url")]
         public string LinkedInUrl { get; set; }
 
-        [SerializeAs(Name = "avatar-url")]
+        [SerializeAs(Name = "avatar_url")]
         public string AvatarUrl { get; set; }
 
         [SerializeAs(Name = "company-id")]
