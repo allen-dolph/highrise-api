@@ -1,7 +1,9 @@
 ﻿using System;
 using HighriseApi.Requests;
+using HighriseApi.Serializers;
 using RestSharp;
 using RestSharp.Authenticators;
+using RestSharp.Deserializers;
 
 namespace HighriseApi
 {
@@ -44,8 +46,25 @@ namespace HighriseApi
             _client = new RestClient
                 {
                     BaseUrl = new Uri(string.Format("https://{0}.highrisehq.com", username)),
-                    Authenticator = new HttpBasicAuthenticator(authenticationToken, "X")
+                    Authenticator = new HttpBasicAuthenticator(authenticationToken, "X")                    
                 };
+
+#if DEBUG
+
+            _client.RemoveHandler("application/xml");
+            _client.AddHandler("application/xml", (IDeserializer)new XmlDebuggingDeserializer());
+
+            _client.RemoveHandler("text/xml");
+            _client.AddHandler("text/xml", (IDeserializer)new XmlDebuggingDeserializer());
+
+            _client.RemoveHandler("*+xml");
+            _client.AddHandler("*+xml", (IDeserializer)new XmlDebuggingDeserializer());
+
+            _client.RemoveHandler("*");
+            _client.AddHandler("*", (IDeserializer)new XmlDebuggingDeserializer());
+
+#endif
+
         }
     }
 }
