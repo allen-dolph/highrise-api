@@ -1,26 +1,20 @@
 ﻿using HighriseApi.Requests;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Linq;
-using System.Collections;
-using RestSharp;
-using HighriseApi;
-using System.Collections.Generic;
 
 namespace HighriseApi.Tests
 {
-    
-    
     /// <summary>
-    ///This is a test class for EmailRequestTest and is intended
-    ///to contain all EmailRequestTest Unit Tests
+    /// This is a test class for CompanyRequestTest and is intended
+    /// to contain all CompanyRequestTest Unit Tests
     ///</summary>
     [TestClass()]
-    public class EmailRequestTest : TestBase
+    public class CompanyRequestTest : TestBase
     {
 
 
-        private TestContext testContextInstance;
+        private TestContext _testContextInstance;
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -30,11 +24,11 @@ namespace HighriseApi.Tests
         {
             get
             {
-                return testContextInstance;
+                return _testContextInstance;
             }
             set
             {
-                testContextInstance = value;
+                _testContextInstance = value;
             }
         }
 
@@ -70,16 +64,27 @@ namespace HighriseApi.Tests
 
 
         /// <summary>
-        ///A test for Get
+        /// A test for Get All
         ///</summary>
         [TestMethod()]
         public void GetTest()
         {
-            EmailRequest target = base.HighriseApiRequest.EmailRequest;
-            Nullable<int> offset = new Nullable<int>(); // TODO: Initialize to an appropriate value
-            IEnumerable<Email> actual;
-            actual = target.Get(offset);
-            Assert.IsTrue(actual.Count() > 0);
+            CompanyRequest target = HighriseApiRequest.CompanyRequest;            
+            var actual = target.Get();
+            Assert.IsTrue(actual.Any());
         }
+
+        /// <summary>
+        /// A test for Get Single
+        ///</summary>
+        [TestMethod()]
+        public void GetSingleTest()
+        {
+            CompanyRequest target = HighriseApiRequest.CompanyRequest;
+            var actual = target.Get(89797880);
+            Assert.IsTrue(actual != null);
+        }
+
+
     }
 }

@@ -18,7 +18,7 @@ namespace HighriseApi.Requests
                           ? String.Format("people.xml?n={0}", offset.Value)
                           : "people.xml";
 
-            var response = _client.Execute<List<Person>>(new RestRequest(url, Method.GET));
+            var response = Client.Execute<List<Person>>(new RestRequest(url, Method.GET));
             return response.Data;
         }
 
@@ -28,13 +28,13 @@ namespace HighriseApi.Requests
 
             var url = String.Format("people.xml?since={0}", startDate.ToString("yyyyMMddHHmmss"));
 
-            var response = _client.Execute<List<Person>>(new RestRequest(url, Method.GET));
+            var response = Client.Execute<List<Person>>(new RestRequest(url, Method.GET));
             return response.Data;
         }
 
         public Person Get(int id)
         {
-            var response = _client.Execute<Person>(new RestRequest(String.Format("people/{0}.xml", id), Method.GET));
+            var response = Client.Execute<Person>(new RestRequest(String.Format("people/{0}.xml", id), Method.GET));
             return response.Data;
         }
 
@@ -43,7 +43,7 @@ namespace HighriseApi.Requests
             var request = new RestRequest("people.xml", Method.POST) { XmlSerializer = new XmlSerializer() };
             request.AddBody(person);
 
-            var response = _client.Execute<Person>(request);
+            var response = Client.Execute<Person>(request);
             return response.Data;
         }
 
@@ -53,13 +53,13 @@ namespace HighriseApi.Requests
             request.AddParameter("id", person.Id, ParameterType.UrlSegment);
             request.AddBody(person);
 
-            var response = _client.Execute<Person>(request);
+            var response = Client.Execute<Person>(request);
             return response.Data;
         }
 
         public bool Delete(int id)
         {
-            var response = _client.Execute<Person>(new RestRequest(String.Format("people/{0}.xml", id), Method.DELETE));
+            var response = Client.Execute<Person>(new RestRequest(String.Format("people/{0}.xml", id), Method.DELETE));
             return response.StatusCode == HttpStatusCode.OK;
         }
 
@@ -71,7 +71,7 @@ namespace HighriseApi.Requests
                           ? String.Format("people/search.xml?term={0}&n={1}", name, offset.Value)
                           : String.Format("people/search.xml?term={0}", name);
 
-            var response = _client.Execute<List<Person>>(new RestRequest(url, Method.GET));
+            var response = Client.Execute<List<Person>>(new RestRequest(url, Method.GET));
             return response.Data;
         }
 
@@ -83,7 +83,7 @@ namespace HighriseApi.Requests
                 ? String.Format("people/search.xml?n={0}&{1}", offset.Value, values.ToSearchQueryString())
                 : String.Format("people/search.xml?{0}", values.ToSearchQueryString());
 
-            var response = _client.Execute<List<Person>>(new RestRequest(url, Method.GET));
+            var response = Client.Execute<List<Person>>(new RestRequest(url, Method.GET));
             return response.Data;
         }
     }

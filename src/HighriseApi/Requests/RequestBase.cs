@@ -5,7 +5,7 @@ namespace HighriseApi.Requests
 {
     public class RequestBase
     {
-        protected readonly IRestClient _client;
+        protected readonly IRestClient Client;
 
         public RequestBase() 
         {
@@ -17,7 +17,8 @@ namespace HighriseApi.Requests
         {
             ServicePointManager.ServerCertificateValidationCallback +=
                 (sender, certificate, chain, sslPolicyErrors) => true;
-            _client = client;
+
+            Client = client;
         }
     }
 }

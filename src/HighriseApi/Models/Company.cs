@@ -8,7 +8,7 @@ namespace HighriseApi.Models
     public class Company : BaseModel
     {
         [SerializeAs(Name = "author-id")]
-        public int AuthorId { get; set; }
+        public int? AuthorId { get; set; }
 
         [SerializeAs(Name = "group-id")]
         public int? GroupId { get; set; }
@@ -23,10 +23,10 @@ namespace HighriseApi.Models
         public string Background { get; set; }
 
         [SerializeAs(Name = "created-at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [SerializeAs(Name = "updated-at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         [SerializeAs(Name = "visible-to")]
         public string VisibleTo { get; set; }
@@ -38,6 +38,9 @@ namespace HighriseApi.Models
         public List<SubjectData> SubjectDatas { get; set; }
 
         [SerializeAs(Name = "tags")]
-        public List<Tag> Tags { get; set; } 
+        public List<Tag> Tags { get; set; }
+
+        [SerializeAs(Name = "avatar_url")]
+        public string AvatarUrl { get; set; }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using HighriseApi.Models;
 using HighriseApi.Models.Enums;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace HighriseApi.Interfaces
 {
+    /// <summary>
+    /// Working with Comments (see https://github.com/basecamp/highrise-api/blob/master/sections/comments.md)
+    /// </summary>
     public interface ICommentRequest
     {
         /// <summary>
@@ -19,9 +19,9 @@ namespace HighriseApi.Interfaces
         /// Gets an IEnumerable collection of <see cref="Comment"/> objects by Note/Email Id and <see cref="CommentType"/>.
         /// </summary>
         /// <param name="id">A note or email id the comment is associated with</param>
-        /// <param name="CommentType">A <see cref="CommentType"/> enum value</param>
+        /// <param name="commentType">A <see cref="CommentType"/> enum value</param>
         /// <returns>An IEnumerable collection of <see cref="Comment"/> objects</returns>.
-        IEnumerable<Comment> Get(int id,CommentType commentType);
+        IEnumerable<Comment> Get(int id, CommentType commentType);
 
         /// <summary>
         /// Creates a new comment

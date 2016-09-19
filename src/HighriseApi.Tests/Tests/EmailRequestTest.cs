@@ -1,43 +1,24 @@
 ﻿using HighriseApi.Requests;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using RestSharp;
-using HighriseApi;
-using System.Collections.Generic;
+using System.Linq;
+using HighriseApi.Models.Enums;
 
 namespace HighriseApi.Tests
 {
     
     
     /// <summary>
-    ///This is a test class for PersonRequestTest and is intended
-    ///to contain all PersonRequestTest Unit Tests
+    ///This is a test class for EmailRequestTest and is intended
+    ///to contain all EmailRequestTest Unit Tests
     ///</summary>
     [TestClass()]
-    public class PersonRequestTest : TestBase
+    public class EmailRequestTest : TestBase
     {
-
-
-        private TestContext testContextInstance;
-
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
+        public TestContext TestContext { get; set; }
 
         #region Additional test attributes
         // 
@@ -69,31 +50,16 @@ namespace HighriseApi.Tests
         //
         #endregion
 
-
         /// <summary>
         ///A test for Get
         ///</summary>
         [TestMethod()]
         public void GetTest()
         {
-            PersonRequest target = base.HighriseApiRequest.PersonRequest; // new PersonRequest(client); // TODO: Initialize to an appropriate value
-            DateTime startDate = DateTime.Parse("2013-01-01");
-            IEnumerable<Person> actual;
-            actual = target.Get(startDate);
-            Assert.IsTrue(actual.Count() > 0);
-        }
-
-        /// <summary>
-        ///A test for Get
-        ///</summary>
-        [TestMethod()]
-        public void GetTest1()
-        {
-            PersonRequest target = base.HighriseApiRequest.PersonRequest;
-            int id = 185835413; 
-            Person actual;
-            actual = target.Get(id);
-            Assert.IsNotNull(actual);
+            EmailRequest target = HighriseApiRequest.EmailRequest;
+            int? offset = null; // TODO: Initialize to an appropriate value
+            var actual = target.Get(SubjectType.People, 7777, offset);
+            Assert.IsTrue(actual.Any());
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using RestSharp.Serializers;
+﻿using RestSharp.Serializers;
 
 namespace HighriseApi
 {

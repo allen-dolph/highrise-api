@@ -16,19 +16,19 @@ namespace HighriseApi.Requests
 
         public IEnumerable<Tag> Get()
         {
-            var response = _client.Execute<List<Tag>>(new RestRequest("tags.xml", Method.GET));
+            var response = Client.Execute<List<Tag>>(new RestRequest("tags.xml", Method.GET));
             return response.Data;
         }
 
         public IEnumerable<Tag> Get(SubjectType subjectType, int subjectId)
         {
-            var response = _client.Execute<List<Tag>>(new RestRequest(String.Format("{0}/{1}/tags.xml", subjectType.ToString().ToLower(), subjectId), Method.GET));
+            var response = Client.Execute<List<Tag>>(new RestRequest(String.Format("{0}/{1}/tags.xml", subjectType.ToString().ToLower(), subjectId), Method.GET));
             return response.Data;
         }
 
         public Parties Parties(int tagId)
         {
-            var response = _client.Execute(new RestRequest(String.Format("tags/{0}.xml", tagId), Method.GET));
+            var response = Client.Execute(new RestRequest(String.Format("tags/{0}.xml", tagId), Method.GET));
             return PartyConverter.Convert(response.Content);
         }
 
@@ -39,13 +39,13 @@ namespace HighriseApi.Requests
 
             request.AddParameter("name", tag.Name);
 
-            var response = _client.Execute<Tag>(request);
+            var response = Client.Execute<Tag>(request);
             return response.Data;
         }
 
         public bool Delete(SubjectType subjectType, int subjectId, int tagId)
         {
-            var response = _client.Execute<Tag>(new RestRequest(String.Format("{0}/{1}/tags/{2}.xml", 
+            var response = Client.Execute<Tag>(new RestRequest(String.Format("{0}/{1}/tags/{2}.xml", 
                 subjectType.ToString().ToLower(), subjectId, tagId), Method.DELETE));
 
             return response.StatusCode == HttpStatusCode.OK;

@@ -4,7 +4,6 @@ using HighriseApi.Serializers;
 using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 
 namespace HighriseApi.Requests
@@ -15,7 +14,7 @@ namespace HighriseApi.Requests
 
         public IEnumerable<SubjectField> Get()
         {
-            var response = _client.Execute<List<SubjectField>>(new RestRequest("subject_fields.xml", Method.GET));
+            var response = Client.Execute<List<SubjectField>>(new RestRequest("subject_fields.xml", Method.GET));
             var subjectFields = response.Data;
             return subjectFields;
         }
@@ -25,7 +24,7 @@ namespace HighriseApi.Requests
             var request = new RestRequest("subject_fields.xml", Method.POST) { XmlSerializer = new XmlIgnoreSerializer() };
             request.AddBody(subjectfield);
 
-            var response = _client.Execute<SubjectField>(request);
+            var response = Client.Execute<SubjectField>(request);
             return response.Data;
         }
 
@@ -35,13 +34,13 @@ namespace HighriseApi.Requests
             request.AddParameter("id", subjectField.Id, ParameterType.UrlSegment);
             request.AddBody(subjectField);
 
-            var response = _client.Execute<Kase>(request);
+            var response = Client.Execute<Kase>(request);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
         public bool Delete(int id)
         {
-            var response = _client.Execute<Kase>(new RestRequest(String.Format("subject_fields/{0}.xml", id), Method.DELETE));
+            var response = Client.Execute<Kase>(new RestRequest(String.Format("subject_fields/{0}.xml", id), Method.DELETE));
             return response.StatusCode == HttpStatusCode.OK;
         }
     }

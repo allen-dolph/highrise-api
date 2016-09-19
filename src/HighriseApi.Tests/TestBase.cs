@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HighriseApi;
-
-namespace HighriseApi.Tests
+﻿namespace HighriseApi.Tests
 {
     public class TestBase
     {
@@ -13,7 +7,7 @@ namespace HighriseApi.Tests
             _highriseApiRequest = new ApiRequest("company", "key");
         }
 
-        private ApiRequest _highriseApiRequest;
+        private readonly ApiRequest _highriseApiRequest;
         public ApiRequest HighriseApiRequest { get { return _highriseApiRequest; } }
     }
 }

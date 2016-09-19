@@ -19,13 +19,16 @@ namespace HighriseApi.Requests
                           ? String.Format("companies.xml?n={0}", offset.Value)
                           : "companies.xml";
 
-            var response = _client.Execute<List<Company>>(new RestRequest(url, Method.GET));
-            return response.Data;
+            var req = new RestRequest(url, Method.GET);
+
+            var response = Client.Execute<List<Company>>(req);
+
+            return response != null ? response.Data : null;
         }
 
         public Company Get(int id)
         {
-            var response = _client.Execute<Company>(new RestRequest(String.Format("companies/{0}.xml", id), Method.GET));
+            var response = Client.Execute<Company>(new RestRequest(String.Format("companies/{0}.xml", id), Method.GET));
             return response.Data;
         }
 
@@ -34,7 +37,7 @@ namespace HighriseApi.Requests
             var request = new RestRequest("companies.xml", Method.POST) { XmlSerializer = new XmlSerializer() };
             request.AddBody(company);
 
-            var response = _client.Execute<Company>(request);
+            var response = Client.Execute<Company>(request);
             return response.Data;
         }
 
@@ -44,13 +47,13 @@ namespace HighriseApi.Requests
             request.AddParameter("id", company.Id, ParameterType.UrlSegment);
             request.AddBody(company);
 
-            var response = _client.Execute<Company>(request);
+            var response = Client.Execute<Company>(request);
             return response.Data;
         }
 
         public bool Delete(int id)
         {
-            var response = _client.Execute<Company>(new RestRequest(String.Format("companies/{0}.xml", id), Method.DELETE));
+            var response = Client.Execute<Company>(new RestRequest(String.Format("companies/{0}.xml", id), Method.DELETE));
             return response.StatusCode == HttpStatusCode.OK;
         }
 
@@ -62,7 +65,7 @@ namespace HighriseApi.Requests
                           ? String.Format("companies/search.xml?term={0}&n={1}", name, offset.Value)
                           : String.Format("companies/search.xml?term={0}", name);
 
-            var response = _client.Execute<List<Company>>(new RestRequest(url, Method.GET));
+            var response = Client.Execute<List<Company>>(new RestRequest(url, Method.GET));
             return response.Data;
         }
 
@@ -75,7 +78,7 @@ namespace HighriseApi.Requests
                 : String.Format("companies/search.xml?{0}", values.ToSearchQueryString());
 
 
-            var response = _client.Execute<List<Company>>(new RestRequest(url, Method.GET));
+            var response = Client.Execute<List<Company>>(new RestRequest(url, Method.GET));
             return response.Data;
         }
     }

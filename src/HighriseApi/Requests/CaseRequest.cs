@@ -15,7 +15,7 @@ namespace HighriseApi.Requests
 
         public Kase Get(int id)
         {
-            var response = _client.Execute<Kase>(new RestRequest(String.Format("kases/{0}.xml", id), Method.GET));
+            var response = Client.Execute<Kase>(new RestRequest(String.Format("kases/{0}.xml", id), Method.GET));
             var kase = response.Data;
 
             if (kase == null) return null;
@@ -27,7 +27,7 @@ namespace HighriseApi.Requests
         public IEnumerable<Kase> Get(CaseStatus caseStatus)
         {
             var url = caseStatus == CaseStatus.Open ? "kases/open.xml" : "kases/closed.xml";
-            var response = _client.Execute<List<Kase>>(new RestRequest(url, Method.GET));
+            var response = Client.Execute<List<Kase>>(new RestRequest(url, Method.GET));
             var kases = response.Data;
 
             foreach (var kase in kases)
@@ -41,7 +41,7 @@ namespace HighriseApi.Requests
             var request = new RestRequest("kases.xml", Method.POST) { XmlSerializer = new XmlIgnoreSerializer() };
             request.AddBody(kase);
 
-            var response = _client.Execute<Kase>(request);
+            var response = Client.Execute<Kase>(request);
             return response.Data;
         }
 
@@ -51,13 +51,13 @@ namespace HighriseApi.Requests
             request.AddParameter("id", kase.Id, ParameterType.UrlSegment);
             request.AddBody(kase);
 
-            var response = _client.Execute<Kase>(request);
+            var response = Client.Execute<Kase>(request);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
         public bool Delete(int id)
         {
-            var response = _client.Execute<Kase>(new RestRequest(String.Format("kases/{0}.xml", id), Method.DELETE));
+            var response = Client.Execute<Kase>(new RestRequest(String.Format("kases/{0}.xml", id), Method.DELETE));
             return response.StatusCode == HttpStatusCode.OK;
         }
     }

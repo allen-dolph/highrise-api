@@ -19,7 +19,7 @@ namespace HighriseApi.Requests
                           ? String.Format("deals.xml?n={0}", offset.Value)
                           : "deals.xml";
 
-            var response = _client.Execute<List<Deal>>(new RestRequest(url, Method.GET));
+            var response = Client.Execute<List<Deal>>(new RestRequest(url, Method.GET));
             var deals = response.Data;
 
             foreach (var deal in deals)
@@ -30,7 +30,7 @@ namespace HighriseApi.Requests
 
         public Deal Get(int id)
         {
-            var response = _client.Execute<Deal>(new RestRequest(String.Format("deals/{0}.xml", id), Method.GET));
+            var response = Client.Execute<Deal>(new RestRequest(String.Format("deals/{0}.xml", id), Method.GET));
             var deal = response.Data;
 
             if (deal == null) return null;
@@ -42,7 +42,7 @@ namespace HighriseApi.Requests
         public IEnumerable<Deal> Get(DealStatus dealStatus)
         {
             var url = "deals.xml?status=" + dealStatus.ToString().ToLower();
-            var response = _client.Execute<List<Deal>>(new RestRequest(url, Method.GET));
+            var response = Client.Execute<List<Deal>>(new RestRequest(url, Method.GET));
             var deals = response.Data;
 
             foreach (var deal in deals)
@@ -55,7 +55,7 @@ namespace HighriseApi.Requests
         {
             var url = String.Format("deals.xml?since={0}", startDate.ToString("yyyyMMddHHmmss"));
 
-            var response = _client.Execute<List<Deal>>(new RestRequest(url, Method.GET));
+            var response = Client.Execute<List<Deal>>(new RestRequest(url, Method.GET));
             return response.Data;
         }
 
@@ -64,7 +64,7 @@ namespace HighriseApi.Requests
             var request = new RestRequest("deals.xml", Method.POST) { XmlSerializer = new XmlIgnoreSerializer() };
             request.AddBody(deal);
 
-            var response = _client.Execute<Deal>(request);
+            var response = Client.Execute<Deal>(request);
             return response.Data;
         }
 
@@ -73,13 +73,13 @@ namespace HighriseApi.Requests
             var request = new RestRequest(String.Format("deals/{0}.xml", deal.Id), Method.PUT) { XmlSerializer = new XmlIgnoreSerializer() };
             request.AddBody(deal);
 
-            var response = _client.Execute<Deal>(request);
+            var response = Client.Execute<Deal>(request);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
         public bool Delete(int id)
         {
-            var response = _client.Execute<Deal>(new RestRequest(String.Format("deals/{0}.xml", id), Method.DELETE));
+            var response = Client.Execute<Deal>(new RestRequest(String.Format("deals/{0}.xml", id), Method.DELETE));
             return response.StatusCode == HttpStatusCode.OK;
         }
         
@@ -88,7 +88,7 @@ namespace HighriseApi.Requests
             var request = new RestRequest(String.Format("deals/{0}/status.xml", id), Method.PUT) { XmlSerializer = new XmlIgnoreSerializer() };
             request.AddParameter("text/xml", String.Format("<status><name>{0}</name></status>", dealStatus.ToString().ToLower()), ParameterType.RequestBody);
 
-            var response = _client.Execute(request);
+            var response = Client.Execute(request);
             return response.StatusCode == HttpStatusCode.OK;
         }
     }
